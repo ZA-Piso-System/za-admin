@@ -1,7 +1,7 @@
 "use client"
 
 import { AddTimeDialog } from "@/app/devices/[id]/components/add-time.dialog"
-import { StopSessionButton } from "@/app/devices/[id]/components/stop-session.button"
+import { StopSessionDialog } from "@/app/devices/[id]/components/stop-session.dialog"
 import { Button } from "@/components/ui/button"
 
 export default function ViewDevice() {
@@ -19,7 +19,7 @@ export default function ViewDevice() {
         <AddTimeDialog />
         <Button>Update Time</Button>
         <Button>Pause Session</Button>
-        <StopSessionButton />
+        <StopSessionDialog />
       </div>
     </div>
   )
