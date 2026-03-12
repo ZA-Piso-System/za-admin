@@ -20,15 +20,13 @@ export const Navbar = () => {
           </Link>
         </Button>
         <div className="flex items-center gap-2">
-          {data && (
-            <NavbarUser
-              user={{
-                name: data.user.name ?? "",
-                email: data.user.email ?? "",
-                avatar: data.user.image ?? undefined,
-              }}
-            />
-          )}
+          <NavbarUser
+            user={{
+              name: data?.user.name ?? "",
+              email: data?.user.email ?? "",
+              avatar: data?.user.image ?? undefined,
+            }}
+          />
           <ModeToggle />
         </div>
       </nav>

@@ -2,6 +2,7 @@
 
 import {
   BoxIcon,
+  ComputerIcon,
   LifeBuoyIcon,
   PackageIcon,
   SendIcon,
@@ -26,6 +27,11 @@ const adminNav = [
     title: "Dashboard",
     url: "/dashboard",
     icon: BoxIcon,
+  },
+  {
+    title: "Devices",
+    url: "/devices",
+    icon: ComputerIcon,
   },
 ]
 

@@ -1,7 +1,7 @@
 "use client"
 
-import { AddTimeDialog } from "@/app/devices/[id]/components/add-time.dialog"
-import { StopSessionDialog } from "@/app/devices/[id]/components/stop-session.dialog"
+import { AddTimeDialog } from "@/app/(protected)/devices/[id]/components/add-time.dialog"
+import { StopSessionDialog } from "@/app/(protected)/devices/[id]/components/stop-session.dialog"
 import { Button } from "@/components/ui/button"
 
 export default function ViewDevice() {
