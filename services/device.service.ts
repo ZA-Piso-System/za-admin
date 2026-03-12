@@ -10,3 +10,10 @@ export const fetchDevices = async (): Promise<PaginatedResponse<Device>> => {
   const response = await axiosInstance.get("/devices")
   return response.data
 }
+
+export const addTime = async (id: string, seconds: number) => {
+  const response = await axiosInstance.post(`/devices/${id}/add-time`, {
+    seconds,
+  })
+  return response.data
+}
