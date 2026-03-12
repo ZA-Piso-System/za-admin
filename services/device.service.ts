@@ -17,3 +17,8 @@ export const addTime = async (id: string, seconds: number) => {
   })
   return response.data
 }
+
+export const stopSession = async (id: string) => {
+  const response = await axiosInstance.post(`/devices/${id}/stop`)
+  return response.data
+}

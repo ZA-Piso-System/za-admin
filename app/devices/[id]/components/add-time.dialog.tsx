@@ -20,12 +20,12 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 export const AddTimeDialog = () => {
-  const { slug } = useParams<{ slug: string }>()
+  const { id } = useParams<{ id: string }>()
 
   const [showDialog, setShowDialog] = useState<boolean>(false)
 
   const addTimeMutation = useMutation({
-    mutationFn: (seconds: number) => addTime(slug, seconds),
+    mutationFn: (seconds: number) => addTime(id, seconds),
     onError: (error) => {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message)
