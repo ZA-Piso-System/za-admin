@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { addTime } from "@/services/device.service"
+import { addTime } from "@/services/client.service"
 import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { PlusIcon } from "lucide-react"

@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { stopSession } from "@/services/device.service"
+import { stopSession } from "@/services/client.service"
 import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { StopCircleIcon } from "lucide-react"

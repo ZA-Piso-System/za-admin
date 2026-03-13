@@ -1,10 +1,10 @@
 "use client"
 
-import { AddTimeDialog } from "@/app/(protected)/devices/[id]/components/add-time.dialog"
-import { StopSessionDialog } from "@/app/(protected)/devices/[id]/components/stop-session.dialog"
+import { AddTimeDialog } from "@/app/(protected)/clients/[id]/components/add-time.dialog"
+import { StopSessionDialog } from "@/app/(protected)/clients/[id]/components/stop-session.dialog"
 import { Button } from "@/components/ui/button"
 
-export default function ViewDevice() {
+export default function ViewClient() {
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-4">
       <div>

@@ -6,24 +6,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { fetchDevices } from "@/services/device.service"
+import { fetchClients } from "@/services/client.service"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 
 export default function Page() {
   const { data } = useQuery({
-    queryKey: ["devices"],
-    queryFn: () => fetchDevices(),
+    queryKey: ["clients"],
+    queryFn: () => fetchClients(),
   })
 
   return (
     <div className="grid grid-cols-4 gap-4 p-4">
-      {data?.items.map((device) => (
-        <Link key={device.id} href={`/devices/${device.id}`}>
+      {data?.items.map((client) => (
+        <Link key={client.deviceId} href={`/clients/${client.deviceId}`}>
           <Card>
             <CardHeader>
-              <CardTitle>{device.id}</CardTitle>
-              <CardDescription>{device.status}</CardDescription>
+              <CardTitle className="text-3xl font-bold">
+                {client.pcNo}
+              </CardTitle>
+              <CardDescription>{client.status}</CardDescription>
             </CardHeader>
           </Card>
         </Link>
