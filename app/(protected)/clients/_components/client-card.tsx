@@ -27,7 +27,7 @@ export const ClientCard = ({ client }: Props) => {
       if (remainingSeconds <= 0) {
         clearInterval(interval)
       }
-    }, 1000)
+    }, 500)
 
     return () => clearInterval(interval)
   }, [client])

@@ -2,24 +2,81 @@
 
 import { AddTimeDialog } from "@/app/(protected)/clients/[id]/components/add-time.dialog"
 import { StopSessionDialog } from "@/app/(protected)/clients/[id]/components/stop-session.dialog"
+import { Status } from "@/common/types/status.type"
 import { Button } from "@/components/ui/button"
+import { fetchClientById } from "@/services/client.service"
+import { useQuery } from "@tanstack/react-query"
+import { useParams } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
+import { format } from "date-fns"
 
 export default function ViewClient() {
+  const { id } = useParams<{ id: string }>()
+
+  const [remaining, setRemaining] = useState<number>(0)
+
+  const { data } = useQuery({
+    queryKey: ["clients", id],
+    queryFn: () => fetchClientById(id),
+  })
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!data || !data.endAt) return
+
+      const remainingMs = Math.max(0, data.endAt - Date.now())
+      const remainingSeconds = Math.ceil(remainingMs / 1000)
+      setRemaining(remainingSeconds)
+
+      if (remainingSeconds <= 0) {
+        clearInterval(interval)
+      }
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [data])
+
+  const secondsToHMS = (): string => {
+    const hours = Math.floor(remaining / 3600)
+    const minutes = Math.floor((remaining % 3600) / 60)
+    const seconds = remaining % 60
+
+    const formatted = [
+      String(hours).padStart(2, "0"),
+      String(minutes).padStart(2, "0"),
+      String(seconds).padStart(2, "0"),
+    ].join(":")
+
+    return formatted
+  }
+
+  const { startAt, endAt } = useMemo(() => {
+    const startAt = data?.startAt
+      ? format(new Date(data.startAt), "MMM dd, yyyy, hh:mm:ss a")
+      : ""
+
+    const endAt = data?.endAt
+      ? format(new Date(data.endAt), "MMM dd, yyyy, hh:mm:ss a")
+      : ""
+
+    return { startAt, endAt }
+  }, [data])
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-4">
       <div>
-        <div>Device ID: todo</div>
-        <div>PC No: todo</div>
-        <div>Status: todo</div>
-        <div>Remaining Time: todo</div>
-        <div>Start Time: todo</div>
-        <div>End Time: todo</div>
+        <div>Device ID: {data?.deviceId}</div>
+        <div>PC No: {data?.pcNo}</div>
+        <div>Status: {data?.status}</div>
+        <div>Remaining Time: {secondsToHMS()}</div>
+        <div>Start At: {startAt}</div>
+        <div>End At: {endAt}</div>
       </div>
       <div className="flex flex-col gap-2">
         <AddTimeDialog />
         <Button>Update Time</Button>
         <Button>Pause Session</Button>
-        <StopSessionDialog />
+        {data?.status === Status.Active && <StopSessionDialog />}
       </div>
     </div>
   )
