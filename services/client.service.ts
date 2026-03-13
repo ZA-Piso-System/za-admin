@@ -7,6 +7,11 @@ export const fetchClients = async (): Promise<PaginatedResponse<Client>> => {
   return response.data
 }
 
+export const fetchClientById = async (id: string): Promise<Client> => {
+  const response = await axiosInstance.get(`/clients/${id}`)
+  return response.data
+}
+
 export const addTime = async (id: string, seconds: number) => {
   const response = await axiosInstance.post(`/clients/${id}/add-time`, {
     seconds,
