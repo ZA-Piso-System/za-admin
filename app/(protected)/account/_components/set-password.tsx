@@ -28,7 +28,9 @@ export const SetPassword = () => {
     mutationFn: setPassword,
     onError: (error) => {
       if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message)
+        toast.error("Oops! An Error Occurred", {
+          description: error.message,
+        })
       }
     },
     onSuccess: (response) => {
