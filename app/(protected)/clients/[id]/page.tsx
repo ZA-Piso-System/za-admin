@@ -72,7 +72,7 @@ export default function ViewClient() {
         <div>Start At: {startAt}</div>
         <div>End At: {endAt}</div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex w-full flex-col gap-2">
         <AddTimeDialog />
         <Button>Update Time</Button>
         <Button>Pause Session</Button>

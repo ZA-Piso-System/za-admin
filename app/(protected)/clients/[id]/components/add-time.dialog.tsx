@@ -11,6 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
 import { addTime } from "@/services/client.service"
 import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
@@ -23,6 +25,7 @@ export const AddTimeDialog = () => {
   const { id } = useParams<{ id: string }>()
 
   const [showDialog, setShowDialog] = useState<boolean>(false)
+  const [time, setTime] = useState<number | null>(null)
 
   const addTimeMutation = useMutation({
     mutationFn: (seconds: number) => addTime(id, seconds),
@@ -41,51 +44,98 @@ export const AddTimeDialog = () => {
 
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
-      <DialogTrigger asChild>
-        <Button>
-          <PlusIcon className="size-4" />
-          Add Time
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Add Time</DialogTitle>
-          <DialogDescription>Description here</DialogDescription>
-        </DialogHeader>
-        <form
-          className="flex w-full flex-col gap-6"
-          onSubmit={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-          }}
-        >
-          <div className="grid grid-cols-3 gap-2">
-            <Button onClick={() => addTimeMutation.mutate(60 * 4)}>
-              +4 Minutes
-            </Button>
-            <Button onClick={() => addTimeMutation.mutate(60 * 20)}>
-              +20 Minutes
-            </Button>
-            <Button onClick={() => addTimeMutation.mutate(60 * 40)}>
-              +40 Minutes
-            </Button>
-            <Button onClick={() => addTimeMutation.mutate(60 * 60)}>
-              +1 Hour
-            </Button>
-            <Button onClick={() => addTimeMutation.mutate(60 * 60 * 2)}>
-              +2 Hours
-            </Button>
-            <Button onClick={() => addTimeMutation.mutate(60 * 60 * 5)}>
-              +5 Hours
-            </Button>
-          </div>
+      <form>
+        <DialogTrigger asChild>
+          <Button className="w-full">
+            <PlusIcon className="size-4" />
+            Add Time
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Add Time</DialogTitle>
+            <DialogDescription>
+              Select how many minutes to add to this client.
+            </DialogDescription>
+          </DialogHeader>
+          <FieldGroup>
+            <Field>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => setTime(5)}
+                >
+                  +5 Minutes
+                </Button>
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => setTime(15)}
+                >
+                  +15 Minutes
+                </Button>
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => setTime(30)}
+                >
+                  +30 Minutes
+                </Button>
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => setTime(60)}
+                >
+                  +1 Hour
+                </Button>
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => setTime(120)}
+                >
+                  +2 Hours
+                </Button>
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => setTime(180)}
+                >
+                  +3 Hours
+                </Button>
+              </div>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="time">Custom Minutes</FieldLabel>
+              <Input
+                id="time"
+                name="time"
+                value={time ?? ""}
+                onChange={(e) =>
+                  setTime(e.target.value === "" ? null : Number(e.target.value))
+                }
+                type="number"
+                required
+              />
+            </Field>
+          </FieldGroup>
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
+            <Button
+              onClick={() => {
+                if (time) {
+                  addTimeMutation.mutate(time * 60)
+                }
+              }}
+              type="submit"
+            >
+              Confirm
+            </Button>
           </DialogFooter>
-        </form>
-      </DialogContent>
+        </DialogContent>
+      </form>
     </Dialog>
   )
 }
