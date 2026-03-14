@@ -1,4 +1,5 @@
 import { Client } from "@/common/types/client.type"
+import { Status } from "@/common/types/status.type"
 import {
   Card,
   CardContent,
@@ -7,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -48,13 +50,20 @@ export const ClientCard = ({ client }: Props) => {
 
   return (
     <Link key={client.deviceId} href={`/clients/${client.deviceId}`}>
-      <Card>
+      <Card
+        className={cn(
+          client.status === Status.Idle && "bg-green-500",
+          client.status === Status.Active && "bg-red-500"
+        )}
+      >
         <CardHeader>
-          <CardTitle className="text-3xl font-bold">{client.pcNo}</CardTitle>
-          <CardDescription>Status: {client.status}</CardDescription>
+          <CardTitle className="text-center text-6xl font-bold">
+            {client.pcNo}
+          </CardTitle>
         </CardHeader>
-        <CardContent>TODO</CardContent>
-        <CardFooter className="font-mono">{secondsToHMS()}</CardFooter>
+        <CardFooter className="flex justify-center font-mono">
+          {secondsToHMS()}
+        </CardFooter>
       </Card>
     </Link>
   )

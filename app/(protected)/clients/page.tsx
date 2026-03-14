@@ -11,10 +11,14 @@ export default function Page() {
   })
 
   return (
-    <div className="grid grid-cols-4 gap-4 p-4">
-      {data?.items.map((client) => (
-        <ClientCard key={client.deviceId} client={client} />
-      ))}
+    <div className="@container">
+      <div className="grid grid-cols-2 gap-4 p-4 @md:grid-cols-3 @lg:grid-cols-4">
+        {data?.items
+          .sort((a, b) => a.pcNo - b.pcNo)
+          .map((client) => (
+            <ClientCard key={client.deviceId} client={client} />
+          ))}
+      </div>
     </div>
   )
 }

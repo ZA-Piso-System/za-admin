@@ -1,6 +1,6 @@
 "use client"
 
-import { Navbar } from "@/components/shared/navbar/navbar"
+import { SidebarNavbar } from "@/components/shared/navbar/sidebar-navbar"
 import { AppSidebar } from "@/components/shared/sidebar/app-sidebar"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { authClient } from "@/lib/auth-client"
@@ -25,7 +25,7 @@ export default function ProtectedLayout({
     <SidebarProvider>
       <AppSidebar />
       <main className="w-full px-2 pb-2">
-        <Navbar />
+        <SidebarNavbar />
         {children}
       </main>
     </SidebarProvider>
