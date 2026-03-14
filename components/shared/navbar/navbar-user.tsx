@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { authClient } from "@/lib/auth-client"
+import Link from "next/link"
 
 export const NavbarUser = ({
   user,
@@ -84,9 +85,11 @@ export const NavbarUser = ({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheckIcon />
-            Account
+          <DropdownMenuItem asChild>
+            <Link href="/account">
+              <BadgeCheckIcon />
+              Account
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <CreditCardIcon />
