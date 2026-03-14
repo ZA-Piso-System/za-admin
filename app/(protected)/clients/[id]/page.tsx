@@ -31,7 +31,7 @@ export default function ViewClient() {
       if (remainingSeconds <= 0) {
         clearInterval(interval)
       }
-    }, 500)
+    }, 250)
 
     return () => clearInterval(interval)
   }, [data])
