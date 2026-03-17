@@ -28,15 +28,16 @@ export default function ViewDevice() {
     queryFn: () => fetchDeviceById(id),
   })
 
+  const deviceSession = useMemo(() => {
+    if (!data || data.deviceSessions.length <= 0) return null
+    return data.deviceSessions[0]
+  }, [data])
+
   useEffect(() => {
     const interval = setInterval(() => {
       setRemaining(0)
 
-      if (!data || data.deviceSessions.length <= 0) return
-
-      const deviceSession = data.deviceSessions[0]
-
-      if (!deviceSession.endAt) return
+      if (!deviceSession || !deviceSession.endAt) return
 
       const endAt = new Date(deviceSession.endAt).getTime()
       const remainingMs = Math.max(0, endAt - Date.now())
@@ -49,7 +50,7 @@ export default function ViewDevice() {
     }, 250)
 
     return () => clearInterval(interval)
-  }, [data])
+  }, [deviceSession])
 
   const secondsToHMS = (): string => {
     const hours = Math.floor(remaining / 3600)
@@ -66,12 +67,7 @@ export default function ViewDevice() {
   }
 
   const { startAt, endAt } = useMemo(() => {
-    if (!data || data.deviceSessions.length <= 0) {
-      return { startAt: "-", endAt: "-" }
-    }
-
-    const deviceSession = data.deviceSessions[0]
-    if (!deviceSession.startAt || !deviceSession.endAt) {
+    if (!deviceSession || !deviceSession.startAt || !deviceSession.endAt) {
       return { startAt: "-", endAt: "-" }
     }
 
@@ -84,7 +80,7 @@ export default function ViewDevice() {
       : "-"
 
     return { startAt, endAt }
-  }, [data])
+  }, [deviceSession])
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-4">
@@ -148,11 +144,9 @@ export default function ViewDevice() {
         <AddTimeDialog />
         <Button>Update Time</Button>
         <Button>Pause Session</Button>
-        {data &&
-          data.deviceSessions.length > 0 &&
-          data?.deviceSessions[0].status === DeviceSessionStatus.Active && (
-            <StopSessionDialog />
-          )}
+        {deviceSession?.status === DeviceSessionStatus.Active && (
+          <StopSessionDialog />
+        )}
       </div>
     </div>
   )
