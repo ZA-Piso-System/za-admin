@@ -1,6 +1,7 @@
 "use client"
 
 import { CreateDevice } from "@/common/types/device.type"
+import { QueryKey } from "@/common/types/query-key.type"
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -9,6 +10,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { getQueryClient } from "@/lib/react-query"
 import { createDevice } from "@/services/device.service"
 import { useForm } from "@tanstack/react-form"
 import { useMutation } from "@tanstack/react-query"
@@ -29,6 +31,8 @@ const defaultValues: CreateDevice = {
 }
 
 export const DeviceForm = () => {
+  const queryClient = getQueryClient()
+
   const router = useRouter()
 
   const mutation = useMutation({
@@ -42,6 +46,8 @@ export const DeviceForm = () => {
       toast.success(response.message)
       router.push("/devices")
       form.reset()
+
+      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
     },
   })
 

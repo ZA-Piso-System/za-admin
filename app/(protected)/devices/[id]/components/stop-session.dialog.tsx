@@ -22,9 +22,9 @@ import { useParams } from "next/navigation"
 import { toast } from "sonner"
 
 export const StopSessionDialog = () => {
-  const { id } = useParams<{ id: string }>()
-
   const queryClient = getQueryClient()
+
+  const { id } = useParams<{ id: string }>()
 
   const stopSessionMutation = useMutation({
     mutationFn: () => stopSession(id),

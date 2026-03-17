@@ -24,9 +24,9 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 export const AddTimeDialog = () => {
-  const { id } = useParams<{ id: string }>()
-
   const queryClient = getQueryClient()
+
+  const { id } = useParams<{ id: string }>()
 
   const [showDialog, setShowDialog] = useState<boolean>(false)
   const [time, setTime] = useState<number | null>(null)
