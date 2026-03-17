@@ -1,28 +1,29 @@
-import { Client } from "@/common/types/client.type"
-import { Status } from "@/common/types/status.type"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { DeviceSessionStatus } from "@/common/types/device-session.type"
+import { Device } from "@/common/types/device.type"
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 interface Props {
-  client: Client
+  device: Device
 }
-export const ClientCard = ({ client }: Props) => {
+
+export const DeviceCard = ({ device }: Props) => {
   const [remaining, setRemaining] = useState<number>(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!client.endAt) return
+      setRemaining(0)
 
-      const remainingMs = Math.max(0, client.endAt - Date.now())
+      if (!device || device.deviceSessions.length <= 0) return
+
+      const deviceSession = device.deviceSessions[0]
+
+      if (!deviceSession.endAt) return
+
+      const endAt = new Date(deviceSession.endAt).getTime()
+      const remainingMs = Math.max(0, endAt - Date.now())
       const remainingSeconds = Math.ceil(remainingMs / 1000)
       setRemaining(remainingSeconds)
 
@@ -32,7 +33,7 @@ export const ClientCard = ({ client }: Props) => {
     }, 250)
 
     return () => clearInterval(interval)
-  }, [client])
+  }, [device])
 
   const secondsToHMS = (): string => {
     const hours = Math.floor(remaining / 3600)
@@ -49,16 +50,17 @@ export const ClientCard = ({ client }: Props) => {
   }
 
   return (
-    <Link key={client.deviceId} href={`/clients/${client.deviceId}`}>
+    <Link key={device.id} href={`/devices/${device.id}`}>
       <Card
         className={cn(
-          client.status === Status.Idle && "bg-green-500",
-          client.status === Status.Active && "bg-red-500"
+          device.deviceSessions.length > 0 &&
+            device.deviceSessions[0].status === DeviceSessionStatus.Active &&
+            "bg-red-500"
         )}
       >
         <CardHeader>
           <CardTitle className="text-center text-6xl font-bold">
-            {client.pcNo}
+            {device.deviceNumber}
           </CardTitle>
         </CardHeader>
         <CardFooter className="flex justify-center font-mono">

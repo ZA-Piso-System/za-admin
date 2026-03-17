@@ -29,8 +29,8 @@ const adminNav = [
     icon: BoxIcon,
   },
   {
-    title: "Clients",
-    url: "/clients",
+    title: "Devices",
+    url: "/devices",
     icon: ComputerIcon,
   },
 ]

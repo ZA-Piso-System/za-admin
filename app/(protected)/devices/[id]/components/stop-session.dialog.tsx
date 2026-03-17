@@ -1,5 +1,6 @@
 "use client"
 
+import { QueryKey } from "@/common/types/query-key.type"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,7 +13,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { stopSession } from "@/services/client.service"
+import { getQueryClient } from "@/lib/react-query"
+import { stopSession } from "@/services/device.service"
 import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { StopCircleIcon } from "lucide-react"
@@ -21,6 +23,8 @@ import { toast } from "sonner"
 
 export const StopSessionDialog = () => {
   const { id } = useParams<{ id: string }>()
+
+  const queryClient = getQueryClient()
 
   const stopSessionMutation = useMutation({
     mutationFn: () => stopSession(id),
@@ -31,6 +35,9 @@ export const StopSessionDialog = () => {
     },
     onSuccess: (response) => {
       toast.success(response.message)
+
+      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
+      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices, id] })
     },
   })
 

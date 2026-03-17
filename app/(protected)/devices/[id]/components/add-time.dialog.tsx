@@ -1,5 +1,6 @@
 "use client"
 
+import { QueryKey } from "@/common/types/query-key.type"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,7 +14,8 @@ import {
 } from "@/components/ui/dialog"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { addTime } from "@/services/client.service"
+import { getQueryClient } from "@/lib/react-query"
+import { addTime } from "@/services/device.service"
 import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { PlusIcon } from "lucide-react"
@@ -23,6 +25,8 @@ import { toast } from "sonner"
 
 export const AddTimeDialog = () => {
   const { id } = useParams<{ id: string }>()
+
+  const queryClient = getQueryClient()
 
   const [showDialog, setShowDialog] = useState<boolean>(false)
   const [time, setTime] = useState<number | null>(null)
@@ -36,6 +40,8 @@ export const AddTimeDialog = () => {
     },
     onSuccess: (response) => {
       toast.success(response.message)
+      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
+      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices, id] })
     },
     onSettled: () => {
       setShowDialog(false)
