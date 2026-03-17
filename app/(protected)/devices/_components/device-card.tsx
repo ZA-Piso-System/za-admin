@@ -3,7 +3,7 @@ import { Device } from "@/common/types/device.type"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 interface Props {
   device: Device
@@ -12,15 +12,16 @@ interface Props {
 export const DeviceCard = ({ device }: Props) => {
   const [remaining, setRemaining] = useState<number>(0)
 
+  const deviceSession = useMemo(() => {
+    if (!device || device.deviceSessions.length <= 0) return null
+    return device.deviceSessions[0]
+  }, [device])
+
   useEffect(() => {
     const interval = setInterval(() => {
       setRemaining(0)
 
-      if (!device || device.deviceSessions.length <= 0) return
-
-      const deviceSession = device.deviceSessions[0]
-
-      if (!deviceSession.endAt) return
+      if (!deviceSession || !deviceSession.endAt) return
 
       const endAt = new Date(deviceSession.endAt).getTime()
       const remainingMs = Math.max(0, endAt - Date.now())
@@ -33,7 +34,7 @@ export const DeviceCard = ({ device }: Props) => {
     }, 250)
 
     return () => clearInterval(interval)
-  }, [device])
+  }, [deviceSession])
 
   const secondsToHMS = (): string => {
     const hours = Math.floor(remaining / 3600)
