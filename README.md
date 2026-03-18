@@ -32,14 +32,21 @@ cd za-admin
 pnpm install
 ```
 
-### 3. Start the development server:
+## 🌐 Environment Setup
+### 3. Create .env.local file
+Copy the example below and create a `.env.local` file in the root directory:
 ```
-pnpm run dev
+cp .env.local.example .env.local
 ```
 
-## 🌐 Environment Variables
-Make sure to set the following environment variables in your `.env.local` file:
+### 4. Configure environment variables
 ```
 NEXT_PUBLIC_BASE_URL=http://localhost:5000/api/v1
 ALLOWED_ORIGINS=localhost
+```
+
+## 🚀 Start the App
+### 5. Start the development server:
+```
+pnpm run dev
 ```
