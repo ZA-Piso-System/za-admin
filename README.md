@@ -1,21 +1,45 @@
-# Next.js template
+## 🧰 Prerequisites
+Make sure you have the following installed:
+- Node.js (latest LTS version)
+- Git
 
-This is a Next.js template with shadcn/ui.
-
-## Adding components
-
-To add components to your app, run the following command:
-
-```bash
-npx shadcn@latest add button
+### Verify installation
+```
+node -v
+npm -v
+git -v
 ```
 
-This will place the ui components in the `components` directory.
+## 📦 Install pnpm
+```
+npm install -g pnpm
+```
 
-## Using components
+### Verify installation
+```
+pnpm -v
+```
 
-To use the components in your app, import them as follows:
+## ⚙️ Running the App Locally
+### 1. Clone the repository:
+```
+git clone git@github.com:ZA-Piso-System/za-admin.git
+cd za-admin
+```
 
-```tsx
-import { Button } from "@/components/ui/button";
+### 2. Install dependencies:
+```
+pnpm install
+```
+
+### 3. Start the development server:
+```
+pnpm run dev
+```
+
+## 🌐 Environment Variables
+Make sure to set the following environment variables in your `.env.local` file:
+```
+NEXT_PUBLIC_BASE_URL=http://localhost:5000/api/v1
+ALLOWED_ORIGINS=localhost
 ```
