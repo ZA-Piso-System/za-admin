@@ -8,7 +8,6 @@ import {
   LogOutIcon,
   SparklesIcon,
 } from "lucide-react"
-import { useRouter } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import {
@@ -38,7 +37,6 @@ export const SidebarUser = ({
     avatar?: string
   }
 }) => {
-  const router = useRouter()
   const { isMobile } = useSidebar()
 
   function getInitials() {
@@ -50,13 +48,7 @@ export const SidebarUser = ({
   }
 
   const handleLogout = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/")
-        },
-      },
-    })
+    await authClient.signOut()
   }
 
   return (

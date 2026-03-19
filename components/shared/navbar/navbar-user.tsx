@@ -5,7 +5,6 @@ import {
   CreditCardIcon,
   LogOutIcon,
 } from "lucide-react"
-import { useRouter } from "next/navigation"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -30,8 +29,6 @@ export const NavbarUser = ({
     avatar?: string
   }
 }) => {
-  const router = useRouter()
-
   function getInitials() {
     return user.name
       .split(" ")
@@ -41,13 +38,7 @@ export const NavbarUser = ({
   }
 
   const handleLogout = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/")
-        },
-      },
-    })
+    await authClient.signOut()
   }
 
   return (
