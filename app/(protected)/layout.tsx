@@ -19,6 +19,7 @@ export default function ProtectedLayout({
     if (data === null && !isPending) {
       router.push("/login")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isPending])
 
   return (
