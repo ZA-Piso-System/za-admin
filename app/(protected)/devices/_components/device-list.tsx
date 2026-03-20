@@ -2,7 +2,6 @@
 
 import { QueryKey } from "@/common/types/query-key.type"
 import { DeviceCard } from "@/components/shared/device-card/device-card"
-import { Button } from "@/components/ui/button"
 import { fetchDevices } from "@/services/device.service"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
@@ -15,12 +14,7 @@ export const DeviceList = () => {
 
   return (
     <div className="@container flex flex-col gap-4">
-      <div className="flex items-center justify-end">
-        <Button asChild>
-          <Link href="/devices/create">Create</Link>
-        </Button>
-      </div>
-      <div className="grid grid-cols-2 gap-4 p-4 @md:grid-cols-3 @lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 @md:grid-cols-3 @lg:grid-cols-4">
         {data?.items
           .sort((a, b) => a.deviceNumber - b.deviceNumber)
           .map((device) => (
