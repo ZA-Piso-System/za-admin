@@ -3,7 +3,7 @@ import { PaginatedResponse } from "@/common/types/pagination.type"
 import axiosInstance from "@/lib/axios"
 
 export const fetchDevices = async (): Promise<PaginatedResponse<Device>> => {
-  const response = await axiosInstance.get("/admin/devices")
+  const response = await axiosInstance.get("/devices")
   return response.data
 }
 
