@@ -1,8 +1,7 @@
 import { DeviceSessionStatus } from "@/common/types/device-session.type"
-import { Device } from "@/common/types/device.type"
+import { Device, DeviceStatus } from "@/common/types/device.type"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
 
 interface Props {
@@ -53,9 +52,12 @@ export const DeviceCard = ({ device }: Props) => {
   return (
     <Card
       className={cn(
-        device.deviceSessions.length > 0 &&
+        device.status === DeviceStatus.Online && "bg-green-500",
+        device.status === DeviceStatus.Online &&
+          device.deviceSessions.length > 0 &&
           device.deviceSessions[0].status === DeviceSessionStatus.Active &&
-          "bg-red-500"
+          "bg-red-500",
+        "select-none"
       )}
     >
       <CardHeader>
