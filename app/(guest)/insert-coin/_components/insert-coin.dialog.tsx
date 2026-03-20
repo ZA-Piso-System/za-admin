@@ -41,7 +41,9 @@ export const InsertCoinDialog = ({
   const insertCoinDoneMutation = useMutation({
     mutationFn: (id: string) => insertCoinDone(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
+      }, 1_000)
     },
   })
 

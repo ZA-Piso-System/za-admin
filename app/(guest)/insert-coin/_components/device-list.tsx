@@ -1,6 +1,6 @@
 "use client"
 
-import { InsertCoinDialog } from "@/app/(protected)/insert-coin/_components/insert-coin.dialog"
+import { InsertCoinDialog } from "@/app/(guest)/insert-coin/_components/insert-coin.dialog"
 import { Device } from "@/common/types/device.type"
 import { QueryKey } from "@/common/types/query-key.type"
 import { DeviceCard } from "@/components/shared/device-card/device-card"

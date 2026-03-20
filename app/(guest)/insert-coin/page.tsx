@@ -1,4 +1,4 @@
-import { DeviceList } from "@/app/(protected)/insert-coin/_components/device-list"
+import { DeviceList } from "@/app/(guest)/insert-coin/_components/device-list"
 
 export default function CoinSlot() {
   return (
