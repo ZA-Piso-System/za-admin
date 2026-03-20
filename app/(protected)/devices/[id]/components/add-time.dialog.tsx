@@ -23,6 +23,50 @@ import { useParams } from "next/navigation"
 import { useState } from "react"
 import { toast } from "sonner"
 
+interface Rate {
+  label: string
+  value: number
+}
+
+const rates: Rate[] = [
+  {
+    label: "+20 mins",
+    value: 20,
+  },
+  {
+    label: "+40 min",
+    value: 40,
+  },
+  {
+    label: "+1 hr",
+    value: 60,
+  },
+  {
+    label: "+1 hr & 20 mins",
+    value: 80,
+  },
+  {
+    label: "+1 hr & 40 mins",
+    value: 100,
+  },
+  {
+    label: "+2 hrs",
+    value: 120,
+  },
+  {
+    label: "+2 hrs & 20 mins",
+    value: 140,
+  },
+  {
+    label: "+2 hrs & 40 mins",
+    value: 160,
+  },
+  {
+    label: "+3 hrs",
+    value: 180,
+  },
+]
+
 export const AddTimeDialog = () => {
   const queryClient = getQueryClient()
 
@@ -67,48 +111,16 @@ export const AddTimeDialog = () => {
           <FieldGroup>
             <Field>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setTime(5)}
-                >
-                  +5 Minutes
-                </Button>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setTime(15)}
-                >
-                  +15 Minutes
-                </Button>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setTime(30)}
-                >
-                  +30 Minutes
-                </Button>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setTime(60)}
-                >
-                  +1 Hour
-                </Button>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setTime(120)}
-                >
-                  +2 Hours
-                </Button>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setTime(180)}
-                >
-                  +3 Hours
-                </Button>
+                {rates.map((rate, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    type="button"
+                    onClick={() => setTime(rate.value)}
+                  >
+                    {rate.label}
+                  </Button>
+                ))}
               </div>
             </Field>
             <Field>
