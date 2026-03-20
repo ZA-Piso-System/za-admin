@@ -4,9 +4,11 @@ export default function CoinSlot() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <h1 className="text-2xl font-semibold tracking-tight">Select Device</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Available Devices
+        </h1>
         <p className="text-muted-foreground">
-          Choose the device you want to use
+          Piliin lang ang device na gusto mong gamitin
         </p>
       </div>
       <DeviceList />

@@ -2,6 +2,7 @@
 
 import { Device } from "@/common/types/device.type"
 import { QueryKey } from "@/common/types/query-key.type"
+import { formatCurrency } from "@/common/utils/number.util"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -54,6 +55,21 @@ export const InsertCoinDialog = ({
     }
   }
 
+  const secondsToHMS = (): string => {
+    const totalSeconds = (data?.total ?? 0) * 4 * 60
+    const hours = Math.floor(totalSeconds / 3600)
+    const minutes = Math.floor((totalSeconds % 3600) / 60)
+    const seconds = totalSeconds % 60
+
+    const formatted = [
+      String(hours).padStart(2, "0"),
+      String(minutes).padStart(2, "0"),
+      String(seconds).padStart(2, "0"),
+    ].join(":")
+
+    return formatted
+  }
+
   return (
     <Dialog
       open={selectedDevice !== null}
@@ -66,13 +82,22 @@ export const InsertCoinDialog = ({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            Insert Coin for Device {selectedDevice?.deviceNumber}
+            Add Time sa{" "}
+            <span className="uppercase">{selectedDevice?.type}</span>{" "}
+            {selectedDevice?.deviceNumber}
           </DialogTitle>
-          <DialogDescription>Please insert coin</DialogDescription>
+          <DialogDescription>
+            Ihulog ang coins para madagdagan ang time.
+          </DialogDescription>
         </DialogHeader>
-        <div>
-          <div className="font-bold">₱ {data?.total ?? "0.00"}</div>
-          <div>Total Hours: 0</div>
+        <div className="flex flex-col gap-4">
+          <div className="text-center text-4xl font-bold">
+            {formatCurrency(data?.total ?? 0)}
+          </div>
+          <div className="text-center">
+            <div className="text-lg font-bold">{secondsToHMS()}</div>
+            <div className="text-sm text-muted-foreground">Total Duration</div>
+          </div>
         </div>
         <DialogFooter>
           <DialogClose asChild>
