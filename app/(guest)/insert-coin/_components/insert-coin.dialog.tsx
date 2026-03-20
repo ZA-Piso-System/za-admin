@@ -2,7 +2,7 @@
 
 import { Device } from "@/common/types/device.type"
 import { QueryKey } from "@/common/types/query-key.type"
-import { formatCurrency } from "@/common/utils/number.util"
+import { CoinCounter } from "@/components/shared/coin-counter"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -19,7 +19,7 @@ import {
   insertCoinDone,
 } from "@/services/coin-slot.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useMemo } from "react"
 
 interface Props {
   selectedDevice: Device | null
@@ -91,8 +91,8 @@ export const InsertCoinDialog = ({
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
-          <div className="text-center text-4xl font-bold">
-            {formatCurrency(data?.total ?? 0)}
+          <div className="flex justify-center gap-1 text-4xl font-bold">
+            ₱<CoinCounter totalCoins={data?.total ?? 0} />
           </div>
           <div className="text-center">
             <div className="text-lg font-bold">{secondsToHMS()}</div>
