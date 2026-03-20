@@ -16,7 +16,7 @@ import { getQueryClient } from "@/lib/react-query"
 import {
   fetchTotalInsertedCoins,
   insertCoinDone,
-} from "@/services/insert-coin.service"
+} from "@/services/coin-slot.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 
