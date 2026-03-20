@@ -1,7 +1,7 @@
 "use client"
 
-import { DeviceCard } from "@/app/(protected)/devices/_components/device-card"
 import { QueryKey } from "@/common/types/query-key.type"
+import { DeviceCard } from "@/components/shared/device-card/device-card"
 import { Button } from "@/components/ui/button"
 import { fetchDevices } from "@/services/device.service"
 import { useQuery } from "@tanstack/react-query"
@@ -24,7 +24,9 @@ export const DeviceList = () => {
         {data?.items
           .sort((a, b) => a.deviceNumber - b.deviceNumber)
           .map((device) => (
-            <DeviceCard key={device.id} device={device} />
+            <Link key={device.id} href={`/devices/${device.id}`}>
+              <DeviceCard device={device} />
+            </Link>
           ))}
       </div>
     </div>

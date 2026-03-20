@@ -12,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { getQueryClient } from "@/lib/react-query"
 import {
   fetchTotalInsertedCoins,
   insertCoinDone,
@@ -28,6 +29,8 @@ export const InsertCoinDialog = ({
   selectedDevice,
   setSelectedDevice,
 }: Props) => {
+  const queryClient = getQueryClient()
+
   const { data } = useQuery({
     queryKey: [QueryKey.CoinSlots],
     queryFn: () => fetchTotalInsertedCoins(),
@@ -37,6 +40,9 @@ export const InsertCoinDialog = ({
 
   const insertCoinDoneMutation = useMutation({
     mutationFn: (id: string) => insertCoinDone(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
+    },
   })
 
   const handleClose = () => {

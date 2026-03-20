@@ -3,8 +3,7 @@
 import { InsertCoinDialog } from "@/app/(protected)/insert-coin/_components/insert-coin.dialog"
 import { Device } from "@/common/types/device.type"
 import { QueryKey } from "@/common/types/query-key.type"
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { DeviceCard } from "@/components/shared/device-card/device-card"
 import { fetchDevices } from "@/services/device.service"
 import { insertCoin } from "@/services/insert-coin.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -42,17 +41,9 @@ export const DeviceList = () => {
         {data?.items
           .sort((a, b) => a.deviceNumber - b.deviceNumber)
           .map((device) => (
-            <Card
-              key={device.id}
-              className={cn("cursor-pointer")}
-              onClick={() => handleClick(device)}
-            >
-              <CardHeader>
-                <CardTitle className="text-center text-6xl font-bold">
-                  {device.deviceNumber}
-                </CardTitle>
-              </CardHeader>
-            </Card>
+            <div key={device.id} onClick={() => handleClick(device)}>
+              <DeviceCard device={device} />
+            </div>
           ))}
       </div>
       <InsertCoinDialog

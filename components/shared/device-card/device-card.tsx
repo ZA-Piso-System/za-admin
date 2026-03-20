@@ -51,23 +51,21 @@ export const DeviceCard = ({ device }: Props) => {
   }
 
   return (
-    <Link key={device.id} href={`/devices/${device.id}`}>
-      <Card
-        className={cn(
-          device.deviceSessions.length > 0 &&
-            device.deviceSessions[0].status === DeviceSessionStatus.Active &&
-            "bg-red-500"
-        )}
-      >
-        <CardHeader>
-          <CardTitle className="text-center text-6xl font-bold">
-            {device.deviceNumber}
-          </CardTitle>
-        </CardHeader>
-        <CardFooter className="flex justify-center font-mono">
-          {secondsToHMS()}
-        </CardFooter>
-      </Card>
-    </Link>
+    <Card
+      className={cn(
+        device.deviceSessions.length > 0 &&
+          device.deviceSessions[0].status === DeviceSessionStatus.Active &&
+          "bg-red-500"
+      )}
+    >
+      <CardHeader>
+        <CardTitle className="text-center text-6xl font-bold">
+          {device.deviceNumber}
+        </CardTitle>
+      </CardHeader>
+      <CardFooter className="flex justify-center font-mono">
+        {secondsToHMS()}
+      </CardFooter>
+    </Card>
   )
 }
