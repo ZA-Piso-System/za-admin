@@ -17,6 +17,7 @@ export const DeviceList = () => {
   const { data } = useQuery({
     queryKey: [QueryKey.Devices],
     queryFn: () => fetchDevices(),
+    refetchInterval: 15_000,
   })
 
   const insertCoinMutation = useMutation({
