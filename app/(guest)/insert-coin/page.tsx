@@ -1,4 +1,5 @@
 import { DeviceList } from "@/app/(guest)/insert-coin/_components/device-list"
+import { FullscreenButton } from "@/app/(guest)/insert-coin/_components/fullscreen-button"
 
 export default function CoinSlot() {
   return (
@@ -10,6 +11,9 @@ export default function CoinSlot() {
         <p className="text-muted-foreground">
           Piliin lang ang device na gusto mong gamitin
         </p>
+      </div>
+      <div className="absolute top-4 right-4">
+        <FullscreenButton />
       </div>
       <DeviceList />
     </div>
