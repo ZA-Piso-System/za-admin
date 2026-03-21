@@ -4,15 +4,24 @@ import { InsertCoinDialog } from "@/app/(guest)/insert-coin/_components/insert-c
 import { Device } from "@/common/types/device.type"
 import { QueryKey } from "@/common/types/query-key.type"
 import { DeviceCard } from "@/components/shared/device-card/device-card"
+import { getQueryClient } from "@/lib/react-query"
 import { insertCoin } from "@/services/coin-slot.service"
 import { fetchDevices } from "@/services/device.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
+const COUNTDOWN = 30
+const COOLDOWN = 5
+
 export const DeviceList = () => {
+  const queryClient = getQueryClient()
+
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null)
+
+  const [countdown, setCountdown] = useState<number>(COUNTDOWN)
+  const [cooldown, setCooldown] = useState<number>(COOLDOWN)
 
   const { data } = useQuery({
     queryKey: [QueryKey.Devices],
@@ -32,6 +41,28 @@ export const DeviceList = () => {
     },
   })
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 0) {
+          setSelectedDevice(null)
+          queryClient.invalidateQueries({ queryKey: [QueryKey.CoinSlots] })
+          return 0
+        }
+        return prev - 1
+      })
+
+      setCooldown((prev) => (prev > 0 ? prev - 1 : 0))
+    }, 1000)
+    return () => clearInterval(interval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    setCountdown(COUNTDOWN)
+    setCooldown(COOLDOWN)
+  }, [selectedDevice])
+
   const handleClick = (device: Device) => {
     insertCoinMutation.mutate(device)
   }
@@ -50,6 +81,10 @@ export const DeviceList = () => {
       <InsertCoinDialog
         selectedDevice={selectedDevice}
         setSelectedDevice={setSelectedDevice}
+        countdown={countdown}
+        setCountdown={setCountdown}
+        cooldown={cooldown}
+        setCooldown={setCooldown}
       />
     </div>
   )
