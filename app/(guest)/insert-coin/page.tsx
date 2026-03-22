@@ -1,7 +1,7 @@
 import { DeviceList } from "@/app/(guest)/insert-coin/_components/device-list"
 import { FullscreenButton } from "@/app/(guest)/insert-coin/_components/fullscreen-button"
 
-export default function CoinSlot() {
+export default function InsertCoin() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col">
