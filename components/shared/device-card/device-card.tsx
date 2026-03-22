@@ -52,6 +52,7 @@ export const DeviceCard = ({ device }: Props) => {
   return (
     <Card
       className={cn(
+        device.status === DeviceStatus.Starting && "bg-yellow-500",
         device.status === DeviceStatus.Online && "bg-green-500",
         device.status === DeviceStatus.Online &&
           device.deviceSessions.length > 0 &&
