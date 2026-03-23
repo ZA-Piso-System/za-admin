@@ -57,6 +57,7 @@ export const InsertCoinDialog = ({
     onSuccess: () => {
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
+        queryClient.resetQueries({ queryKey: [QueryKey.CoinSlots] })
       }, 1_000)
     },
   })

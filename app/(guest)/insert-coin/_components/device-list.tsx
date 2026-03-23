@@ -46,7 +46,7 @@ export const DeviceList = () => {
       setCountdown((prev) => {
         if (prev <= 0) {
           setSelectedDevice(null)
-          queryClient.invalidateQueries({ queryKey: [QueryKey.CoinSlots] })
+          queryClient.resetQueries({ queryKey: [QueryKey.CoinSlots] })
           return 0
         }
         return prev - 1
