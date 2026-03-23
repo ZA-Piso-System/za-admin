@@ -25,7 +25,7 @@ export const DeviceList = () => {
 
   const { data } = useQuery({
     queryKey: [QueryKey.Devices],
-    queryFn: () => fetchDevices(),
+    queryFn: fetchDevices,
     refetchInterval: 15_000,
   })
 

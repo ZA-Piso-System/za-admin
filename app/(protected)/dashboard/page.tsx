@@ -1,7 +1,9 @@
+import { SectionCards } from "@/app/(protected)/dashboard/_components/section-cards"
+
 export default function Dashboard() {
   return (
-    <div>
-      <h2>Dashboard</h2>
+    <div className="@container/main">
+      <SectionCards />
     </div>
   )
 }
