@@ -67,7 +67,9 @@ export const AppSidebar = () => {
                   <PackageIcon className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">ZA Piso System</span>
+                  <span className="truncate font-medium">
+                    {process.env.NEXT_PUBLIC_APP_NAME}
+                  </span>
                 </div>
               </Link>
             </SidebarMenuButton>

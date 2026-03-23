@@ -41,6 +41,7 @@ cp .env.local.example .env.local
 
 ### 4. Configure environment variables
 ```
+NEXT_PUBLIC_APP_NAME=ZA Piso System
 NEXT_PUBLIC_BASE_URL=http://localhost:5000/api/v1
 NEXT_PUBLIC_API_URL_COIN_SLOT=http://localhost:5001/api/v1
 
