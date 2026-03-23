@@ -49,25 +49,48 @@ export const DeviceCard = ({ device }: Props) => {
     return formatted
   }
 
+  const getBackgroundColor = () => {
+    if (device.status === DeviceStatus.Offline) {
+      if (deviceSession?.status === DeviceSessionStatus.Active) {
+        return "bg-orange-500"
+      }
+      return "bg-card"
+    }
+    if (device.status === DeviceStatus.Starting) {
+      return "bg-yellow-500"
+    }
+    if (device.status === DeviceStatus.Online) {
+      if (deviceSession?.status === DeviceSessionStatus.Active) {
+        return "bg-red-500"
+      }
+      return "bg-green-500"
+    }
+    return ""
+  }
+
+  const getDisplayStatus = () => {
+    if (device.status === DeviceStatus.Offline) {
+      if (deviceSession?.status === DeviceSessionStatus.Active) {
+        return "Disconnected"
+      }
+    }
+    if (device.status === DeviceStatus.Online) {
+      if (deviceSession?.status === DeviceSessionStatus.Active) {
+        return secondsToHMS()
+      }
+    }
+    return device.status
+  }
+
   return (
-    <Card
-      className={cn(
-        device.status === DeviceStatus.Starting && "bg-yellow-500",
-        device.status === DeviceStatus.Online && "bg-green-500",
-        device.status === DeviceStatus.Online &&
-          device.deviceSessions.length > 0 &&
-          device.deviceSessions[0].status === DeviceSessionStatus.Active &&
-          "bg-red-500",
-        "select-none"
-      )}
-    >
+    <Card className={cn(getBackgroundColor(), "select-none")}>
       <CardHeader>
         <CardTitle className="text-center text-6xl font-bold">
           {device.deviceNumber}
         </CardTitle>
       </CardHeader>
-      <CardFooter className="flex justify-center font-mono">
-        {secondsToHMS()}
+      <CardFooter className="flex justify-center font-medium uppercase">
+        {getDisplayStatus()}
       </CardFooter>
     </Card>
   )
