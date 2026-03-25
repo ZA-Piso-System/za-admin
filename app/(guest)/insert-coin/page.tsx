@@ -4,12 +4,12 @@ import { FullscreenButton } from "@/app/(guest)/insert-coin/_components/fullscre
 export default function InsertCoin() {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col">
+      <div className="flex flex-col select-none">
         <h1 className="text-2xl font-semibold tracking-tight">
           Available Devices
         </h1>
         <p className="text-muted-foreground">
-          Piliin lang ang device na gusto mong gamitin
+          Pumili ng device na gusto mong gamitin
         </p>
       </div>
       <div className="absolute top-4 right-4">
