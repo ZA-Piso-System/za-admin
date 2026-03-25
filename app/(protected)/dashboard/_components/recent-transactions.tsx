@@ -34,7 +34,6 @@ export const RecentTransactions = () => {
   })
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [rowSelection, setRowSelection] = useState({})
 
   const { isPending, data } = useQuery({
     queryKey: [QueryKey.CoinLogs, searchParams.toString()],
@@ -101,13 +100,12 @@ export const RecentTransactions = () => {
     manualFiltering: true,
     onColumnFiltersChange: handleOnColumnFiltersChange,
 
-    onRowSelectionChange: setRowSelection,
+    enableRowSelection: false,
 
     state: {
       pagination,
       sorting,
       columnFilters,
-      rowSelection,
     },
   })
 
