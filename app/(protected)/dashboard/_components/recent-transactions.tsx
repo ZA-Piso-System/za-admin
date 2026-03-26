@@ -20,6 +20,7 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table"
+import { endOfDay, startOfDay } from "date-fns"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -39,8 +40,8 @@ export const RecentTransactions = () => {
     queryKey: [QueryKey.CoinLogs, searchParams.toString()],
     queryFn: () =>
       fetchCoinLogs({
-        from: searchParams.get("from") ?? undefined,
-        to: searchParams.get("to") ?? undefined,
+        from: startOfDay(new Date()).toISOString(),
+        to: endOfDay(new Date()).toISOString(),
         page: searchParams.get("page") ?? undefined,
         page_size: searchParams.get("page_size") ?? undefined,
       }),
