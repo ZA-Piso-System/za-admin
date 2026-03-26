@@ -56,12 +56,12 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export const SalesOverview = () => {
-  const { data } = useQuery({
-    queryKey: [QueryKey.SalesOverview],
-    queryFn: fetchSalesOverview,
-  })
+  const [period, setPeriod] = useState<string>("this_week")
 
-  const [timeRange, setTimeRange] = useState<string>("this_week")
+  const { data } = useQuery({
+    queryKey: [QueryKey.SalesOverview, period],
+    queryFn: () => fetchSalesOverview({ period }),
+  })
 
   return (
     <Card>
@@ -71,7 +71,7 @@ export const SalesOverview = () => {
           Total sales for the selected time period
         </CardDescription>
         <CardAction>
-          <Select value={timeRange} onValueChange={setTimeRange}>
+          <Select value={period} onValueChange={setPeriod}>
             <SelectTrigger className="flex w-40" aria-label="Select a range">
               <SelectValue placeholder="This week" />
             </SelectTrigger>
