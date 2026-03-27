@@ -6,7 +6,7 @@ import { Suspense } from "react"
 export default function Dashboard() {
   return (
     <Suspense>
-      <div className="@container/main flex flex-col gap-6">
+      <div className="@container/main flex flex-col gap-6 p-4">
         <SectionCards />
         <SalesOverview />
         <RecentTransactions />

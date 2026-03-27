@@ -3,7 +3,7 @@ import { FullscreenButton } from "@/app/(guest)/insert-coin/_components/fullscre
 
 export default function InsertCoin() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 p-4">
       <div className="flex flex-col select-none">
         <h1 className="text-2xl font-semibold tracking-tight">
           Available Devices
