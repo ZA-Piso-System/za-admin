@@ -1,6 +1,6 @@
 import { DeviceList } from "@/app/(guest)/pc-list/_components/device-list"
+import { CurrentDate } from "@/components/shared/current-date"
 import { Button } from "@/components/ui/button"
-import { format } from "date-fns"
 import { ChevronLeftIcon } from "lucide-react"
 import Link from "next/link"
 
@@ -17,7 +17,7 @@ export default function PcList() {
         <h1 className="text-3xl font-bold tracking-widest uppercase">
           Select PC
         </h1>
-        <div>{format(new Date(), "PPP")}</div>
+        <CurrentDate />
       </div>
       <DeviceList />
     </div>
