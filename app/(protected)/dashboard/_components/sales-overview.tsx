@@ -61,6 +61,7 @@ export const SalesOverview = () => {
   const { data } = useQuery({
     queryKey: [QueryKey.SalesOverview, period],
     queryFn: () => fetchSalesOverview({ period }),
+    refetchInterval: 10_000,
   })
 
   return (
