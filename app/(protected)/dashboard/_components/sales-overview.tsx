@@ -49,9 +49,13 @@ const ranges: Option[] = [
 ]
 
 const chartConfig = {
-  amount: {
-    label: "Sales",
+  device: {
+    label: "Device",
     color: "var(--chart-1)",
+  },
+  user: {
+    label: "User",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig
 
@@ -103,8 +107,11 @@ export const SalesOverview = () => {
               tickFormatter={(value) => `₱${value.toLocaleString()}`}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Bar dataKey="value" fill="var(--color-amount)" radius={8}>
-              <LabelList dataKey="value" position="top" />
+            <Bar dataKey="device" fill="var(--color-device)" radius={8}>
+              <LabelList dataKey="device" position="top" />
+            </Bar>
+            <Bar dataKey="user" fill="var(--color-user)" radius={8}>
+              <LabelList dataKey="user" position="top" />
             </Bar>
           </BarChart>
         </ChartContainer>

@@ -9,8 +9,13 @@ export const fetchTotalInsertedCoins = async (): Promise<TotalCoin> => {
   return response.data
 }
 
-export const insertCoin = async (id: string): Promise<void> => {
-  const response = await axiosCoinSlot.post(`/${id}/insert-coin`)
+export const insertCoin = async (
+  id: string,
+  type: "device" | "user"
+): Promise<void> => {
+  const response = await axiosCoinSlot.post(`/${id}/insert-coin`, {
+    type,
+  })
   return response.data
 }
 

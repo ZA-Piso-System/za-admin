@@ -1,6 +1,7 @@
 "use client"
 
 import { columns } from "@/app/(protected)/dashboard/_components/columns"
+import { userColumns } from "@/app/(protected)/dashboard/_components/user-columns"
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_INDEX,
@@ -10,7 +11,7 @@ import { QueryKey } from "@/common/types/query-key.type"
 import { DataTable } from "@/components/shared/data-table/data-table"
 import { DataTablePagination } from "@/components/shared/data-table/data-table-pagination"
 import { DataTableViewOptions } from "@/components/shared/data-table/data-table-view-options"
-import { fetchCoinLogs } from "@/services/admin/dashboard.service"
+import { fetchUserCoinLogs } from "@/services/admin/dashboard.service"
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   ColumnFiltersState,
@@ -24,7 +25,7 @@ import { endOfDay, startOfDay } from "date-fns"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export const RecentTransactions = () => {
+export const UserCoinLogs = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -37,9 +38,9 @@ export const RecentTransactions = () => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
   const { isPending, data } = useQuery({
-    queryKey: [QueryKey.CoinLogs, searchParams.toString()],
+    queryKey: [QueryKey.UserCoinLogs, searchParams.toString()],
     queryFn: () =>
-      fetchCoinLogs({
+      fetchUserCoinLogs({
         from: startOfDay(new Date()).toISOString(),
         to: endOfDay(new Date()).toISOString(),
         page: searchParams.get("page") ?? undefined,
@@ -88,7 +89,7 @@ export const RecentTransactions = () => {
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: data?.items ?? [],
-    columns: columns,
+    columns: userColumns,
 
     getCoreRowModel: getCoreRowModel(),
 
@@ -137,9 +138,7 @@ export const RecentTransactions = () => {
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold tracking-tight">
-          Device Coin Logs
-        </h2>
+        <h2 className="text-xl font-semibold tracking-tight">User Coin Logs</h2>
         <div className="flex flex-col items-center gap-2 sm:flex-row">
           <DataTableViewOptions table={table} />
         </div>

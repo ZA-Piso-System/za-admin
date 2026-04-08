@@ -1,43 +1,47 @@
 "use client"
 
-import { InsertCoinDialog } from "@/app/(guest)/pc-list/_components/insert-coin.dialog"
-import { Device } from "@/common/types/device.type"
+import { TopUpDialog } from "@/app/(guest)/topup/_components/top-up.dialog"
 import { QueryKey } from "@/common/types/query-key.type"
-import { DeviceCard } from "@/components/shared/device-card/device-card"
+import { User } from "@/common/types/user.type"
+import { SearchInput } from "@/components/shared/input/search.input"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { getQueryClient } from "@/lib/react-query"
 import { insertCoin } from "@/services/coin-slot.service"
-import { fetchDevices } from "@/services/device.service"
+import { fetchUsers } from "@/services/user.service"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
+import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
 const COUNTDOWN = 30
 const COOLDOWN = 5
 
-export const DeviceList = () => {
+export const UserList = () => {
   const queryClient = getQueryClient()
 
-  const [selectedDevice, setSelectedDevice] = useState<Device | null>(null)
+  const searchParams = useSearchParams()
+
+  const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
   const [countdown, setCountdown] = useState<number>(COUNTDOWN)
   const [cooldown, setCooldown] = useState<number>(COOLDOWN)
 
   const { data } = useQuery({
-    queryKey: [QueryKey.Devices],
-    queryFn: fetchDevices,
-    refetchInterval: 10_000,
+    queryKey: [QueryKey.Users, searchParams.toString()],
+    queryFn: () =>
+      fetchUsers({ username: searchParams.get("username") ?? undefined }),
   })
 
   const insertCoinMutation = useMutation({
-    mutationFn: (device: Device) => insertCoin(device.id, "device"),
+    mutationFn: (user: User) => insertCoin(user.id, "user"),
     onError: (error) => {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message)
       }
     },
-    onSuccess: (_, device) => {
-      setSelectedDevice(device)
+    onSuccess: (_, user) => {
+      setSelectedUser(user)
     },
   })
 
@@ -45,7 +49,7 @@ export const DeviceList = () => {
     const interval = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 0) {
-          setSelectedDevice(null)
+          setSelectedUser(null)
           queryClient.resetQueries({ queryKey: [QueryKey.CoinSlots] })
           return 0
         }
@@ -61,26 +65,31 @@ export const DeviceList = () => {
   useEffect(() => {
     setCountdown(COUNTDOWN)
     setCooldown(COOLDOWN)
-  }, [selectedDevice])
+  }, [selectedUser])
 
-  const handleClick = (device: Device) => {
-    insertCoinMutation.mutate(device)
+  const handleClick = (user: User) => {
+    insertCoinMutation.mutate(user)
   }
 
   return (
     <div className="@container flex flex-col gap-4">
+      <SearchInput searchKey="username" placeholder="Search username" />
       <div className="grid grid-cols-2 gap-4 @md:grid-cols-3 @lg:grid-cols-4">
-        {data?.items
-          .sort((a, b) => a.deviceNumber - b.deviceNumber)
-          .map((device) => (
-            <div key={device.id} onClick={() => handleClick(device)}>
-              <DeviceCard device={device} />
-            </div>
-          ))}
+        {data?.items.map((user) => (
+          <div key={user.id} onClick={() => handleClick(user)}>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-center text-3xl font-bold">
+                  {user.username}
+                </CardTitle>
+              </CardHeader>
+            </Card>
+          </div>
+        ))}
       </div>
-      <InsertCoinDialog
-        selectedDevice={selectedDevice}
-        setSelectedDevice={setSelectedDevice}
+      <TopUpDialog
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
         countdown={countdown}
         setCountdown={setCountdown}
         cooldown={cooldown}

@@ -28,7 +28,7 @@ export default function Home() {
               </CardFooter>
             </Card>
           </Link>
-          <Link href="#">
+          <Link href="/topup">
             <Card>
               <CardHeader className="space-y-2">
                 <div className="mx-auto">
@@ -39,7 +39,7 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardFooter className="flex justify-center font-medium uppercase">
-                Coming Soon
+                Top up now to earn points
               </CardFooter>
             </Card>
           </Link>
