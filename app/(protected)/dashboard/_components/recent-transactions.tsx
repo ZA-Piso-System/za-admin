@@ -46,6 +46,7 @@ export const RecentTransactions = () => {
         page_size: searchParams.get("page_size") ?? undefined,
       }),
     placeholderData: keepPreviousData,
+    refetchInterval: 10_000,
   })
 
   const handleOnPaginationChange = (

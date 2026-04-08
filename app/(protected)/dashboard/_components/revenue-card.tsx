@@ -13,6 +13,7 @@ export const RevenueCard = () => {
   const { data } = useQuery({
     queryKey: [QueryKey.Dashboard],
     queryFn: fetchDashboard,
+    refetchInterval: 10_000,
   })
 
   return (
