@@ -56,7 +56,6 @@ export const TopUpDialog = ({
     mutationFn: (id: string) => insertCoinDone(id),
     onSuccess: () => {
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
         queryClient.resetQueries({ queryKey: [QueryKey.CoinSlots] })
       }, 1_000)
     },

@@ -21,6 +21,7 @@ export const UserList = () => {
   const queryClient = getQueryClient()
 
   const searchParams = useSearchParams()
+  const username = searchParams.get("username") ?? undefined
 
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
@@ -29,8 +30,8 @@ export const UserList = () => {
 
   const { data } = useQuery({
     queryKey: [QueryKey.Users, searchParams.toString()],
-    queryFn: () =>
-      fetchUsers({ username: searchParams.get("username") ?? undefined }),
+    queryFn: () => fetchUsers({ username }),
+    enabled: !!username,
   })
 
   const insertCoinMutation = useMutation({
