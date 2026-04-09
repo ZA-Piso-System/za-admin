@@ -7,7 +7,7 @@ import { DataTableColumnHeader } from "@/components/shared/data-table/data-table
 import { Device } from "@/common/types/device.type"
 import { format } from "date-fns"
 
-export const columns: ColumnDef<CoinLog>[] = [
+export const deviceColumns: ColumnDef<CoinLog>[] = [
   {
     accessorKey: "device",
     header: ({ column }) => {

@@ -1,6 +1,6 @@
 "use client"
 
-import { columns } from "@/app/(protected)/dashboard/_components/columns"
+import { deviceColumns } from "@/app/(protected)/dashboard/_components/device-columns"
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_INDEX,
@@ -24,7 +24,7 @@ import { endOfDay, startOfDay } from "date-fns"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export const RecentTransactions = () => {
+export const DeviceCoinLogs = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -88,7 +88,7 @@ export const RecentTransactions = () => {
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: data?.items ?? [],
-    columns: columns,
+    columns: deviceColumns,
 
     getCoreRowModel: getCoreRowModel(),
 

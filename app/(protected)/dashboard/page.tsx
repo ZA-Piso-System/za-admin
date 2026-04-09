@@ -1,4 +1,4 @@
-import { RecentTransactions } from "@/app/(protected)/dashboard/_components/recent-transactions"
+import { DeviceCoinLogs } from "@/app/(protected)/dashboard/_components/device-coin-logs"
 import { SalesOverview } from "@/app/(protected)/dashboard/_components/sales-overview"
 import { SectionCards } from "@/app/(protected)/dashboard/_components/section-cards"
 import { UserCoinLogs } from "@/app/(protected)/dashboard/_components/user-coin-logs"
@@ -11,7 +11,7 @@ export default function Dashboard() {
         <SectionCards />
         <SalesOverview />
         <div className="grid grid-cols-1 gap-4 @3xl/main:grid-cols-2">
-          <RecentTransactions />
+          <DeviceCoinLogs />
           <UserCoinLogs />
         </div>
       </div>
