@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="relative flex flex-col gap-8 p-4">
       <div className="flex justify-center">
-        <h1 className="text-3xl font-bold tracking-widest uppercase">
+        <h1 className="font-[AudioWide] text-4xl font-bold tracking-widest uppercase">
           {process.env.NEXT_PUBLIC_APP_NAME}
         </h1>
       </div>
@@ -39,7 +39,7 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardFooter className="flex justify-center font-medium uppercase">
-                Top up now to earn points
+                Top up and earn points
               </CardFooter>
             </Card>
           </Link>

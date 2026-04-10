@@ -1,4 +1,5 @@
 import { DeviceList } from "@/app/(guest)/pc-list/_components/device-list"
+import { PromoBanner } from "@/app/(guest)/pc-list/_components/prombo-banner"
 import { CurrentDate } from "@/components/shared/current-date"
 import { Button } from "@/components/ui/button"
 import { ChevronLeftIcon } from "lucide-react"
@@ -14,12 +15,15 @@ export default function PcList() {
             Back
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold tracking-widest uppercase">
-          Select PC
+        <h1 className="font-[AudioWide] text-4xl font-bold tracking-widest uppercase">
+          PC List
         </h1>
         <CurrentDate />
       </div>
       <DeviceList />
+      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-br from-gray-900 via-purple-900 to-blue-800 py-4 text-white">
+        <PromoBanner />
+      </div>
     </div>
   )
 }

@@ -16,8 +16,8 @@ export default function TopUp() {
               Back
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold tracking-widest uppercase">
-            Select User
+          <h1 className="font-[AudioWide] text-4xl font-bold tracking-widest uppercase">
+            Top Up
           </h1>
           <CurrentDate />
         </div>
