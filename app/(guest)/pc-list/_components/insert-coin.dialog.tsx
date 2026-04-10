@@ -102,7 +102,7 @@ export const InsertCoinDialog = ({
         }
       }}
     >
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]" showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>
             Add Time sa{" "}
@@ -124,9 +124,9 @@ export const InsertCoinDialog = ({
         </div>
         <Progress value={(countdown / COUNTDOWN) * 100} />
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline" disabled={cooldown > 0}>
-              Close
+          <DialogClose asChild className="w-full">
+            <Button variant="outline" size="lg" disabled={cooldown > 0}>
+              Done
               {cooldown > 0 && <span>({cooldown}s)</span>}
             </Button>
           </DialogClose>
