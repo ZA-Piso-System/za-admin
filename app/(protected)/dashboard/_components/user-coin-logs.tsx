@@ -1,6 +1,5 @@
 "use client"
 
-import { columns } from "@/app/(protected)/dashboard/_components/columns"
 import { userColumns } from "@/app/(protected)/dashboard/_components/user-columns"
 import {
   DEFAULT_PAGE,
