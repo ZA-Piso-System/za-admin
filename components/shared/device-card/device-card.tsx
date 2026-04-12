@@ -89,7 +89,7 @@ export const DeviceCard = ({ device }: Props) => {
           {device.deviceNumber}
         </CardTitle>
       </CardHeader>
-      <CardFooter className="flex justify-center font-medium uppercase">
+      <CardFooter className="flex justify-center font-mono font-medium uppercase">
         {getDisplayStatus()}
       </CardFooter>
     </Card>
