@@ -1,5 +1,6 @@
 import { DeviceSessionStatus } from "@/common/types/device-session.type"
 import { Device, DeviceStatus } from "@/common/types/device.type"
+import { secondsToHMS } from "@/common/utils/number.util"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { useEffect, useMemo, useState } from "react"
@@ -35,20 +36,6 @@ export const DeviceCard = ({ device }: Props) => {
     return () => clearInterval(interval)
   }, [deviceSession])
 
-  const secondsToHMS = (): string => {
-    const hours = Math.floor(remaining / 3600)
-    const minutes = Math.floor((remaining % 3600) / 60)
-    const seconds = remaining % 60
-
-    const formatted = [
-      String(hours).padStart(2, "0"),
-      String(minutes).padStart(2, "0"),
-      String(seconds).padStart(2, "0"),
-    ].join(":")
-
-    return formatted
-  }
-
   const getBackgroundColor = () => {
     if (device.status === DeviceStatus.Offline) {
       if (deviceSession?.status === DeviceSessionStatus.Active) {
@@ -76,7 +63,7 @@ export const DeviceCard = ({ device }: Props) => {
     }
     if (device.status === DeviceStatus.Online) {
       if (deviceSession?.status === DeviceSessionStatus.Active) {
-        return secondsToHMS()
+        return secondsToHMS(remaining)
       }
     }
     return device.status

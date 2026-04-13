@@ -2,6 +2,7 @@
 
 import { QueryKey } from "@/common/types/query-key.type"
 import { User } from "@/common/types/user.type"
+import { secondsToHMS } from "@/common/utils/number.util"
 import { CoinCounter } from "@/components/shared/coin-counter"
 import { Button } from "@/components/ui/button"
 import {
@@ -77,21 +78,6 @@ export const TopUpDialog = ({
     }
   }
 
-  const secondsToHMS = (): string => {
-    const totalSeconds = (data?.total ?? 0) * 4 * 60
-    const hours = Math.floor(totalSeconds / 3600)
-    const minutes = Math.floor((totalSeconds % 3600) / 60)
-    const seconds = totalSeconds % 60
-
-    const formatted = [
-      String(hours).padStart(2, "0"),
-      String(minutes).padStart(2, "0"),
-      String(seconds).padStart(2, "0"),
-    ].join(":")
-
-    return formatted
-  }
-
   return (
     <Dialog
       open={selectedUser !== null}
@@ -113,7 +99,9 @@ export const TopUpDialog = ({
             ₱<CoinCounter totalCoins={data?.total ?? 0} />
           </div>
           <div className="text-center">
-            <div className="text-lg font-bold">{secondsToHMS()}</div>
+            <div className="text-lg font-bold">
+              {secondsToHMS(data?.total ?? 0)}
+            </div>
             <div className="text-sm text-muted-foreground">Total Duration</div>
           </div>
         </div>

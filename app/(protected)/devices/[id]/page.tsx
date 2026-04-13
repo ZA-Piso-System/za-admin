@@ -4,6 +4,7 @@ import { AddTimeDialog } from "@/app/(protected)/devices/[id]/components/add-tim
 import { StopSessionDialog } from "@/app/(protected)/devices/[id]/components/stop-session.dialog"
 import { DeviceSessionStatus } from "@/common/types/device-session.type"
 import { QueryKey } from "@/common/types/query-key.type"
+import { secondsToHMS } from "@/common/utils/number.util"
 import { Button } from "@/components/ui/button"
 import {
   Item,
@@ -51,20 +52,6 @@ export default function ViewDevice() {
 
     return () => clearInterval(interval)
   }, [deviceSession])
-
-  const secondsToHMS = (): string => {
-    const hours = Math.floor(remaining / 3600)
-    const minutes = Math.floor((remaining % 3600) / 60)
-    const seconds = remaining % 60
-
-    const formatted = [
-      String(hours).padStart(2, "0"),
-      String(minutes).padStart(2, "0"),
-      String(seconds).padStart(2, "0"),
-    ].join(":")
-
-    return formatted
-  }
 
   const { startAt, endAt } = useMemo(() => {
     if (!deviceSession || !deviceSession.startAt || !deviceSession.endAt) {
@@ -124,7 +111,7 @@ export default function ViewDevice() {
         <Item variant="outline">
           <ItemContent>
             <ItemTitle>Current Time</ItemTitle>
-            <ItemDescription>{secondsToHMS()}</ItemDescription>
+            <ItemDescription>{secondsToHMS(remaining)}</ItemDescription>
           </ItemContent>
         </Item>
         <Item variant="outline">

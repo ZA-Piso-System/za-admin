@@ -7,6 +7,7 @@ import {
   PackageIcon,
   SendIcon,
   SettingsIcon,
+  UsersIcon,
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -27,6 +28,11 @@ const adminNav = [
     title: "Dashboard",
     url: "/dashboard",
     icon: BoxIcon,
+  },
+  {
+    title: "Users",
+    url: "/users",
+    icon: UsersIcon,
   },
   {
     title: "Devices",
