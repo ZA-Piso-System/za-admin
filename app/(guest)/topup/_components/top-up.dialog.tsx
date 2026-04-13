@@ -71,6 +71,8 @@ export const TopUpDialog = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.total])
 
+  const totalDuration = secondsToHMS((data.total ?? 0) * 4 * 60)
+
   const handleClose = () => {
     if (selectedUser && cooldown <= 0) {
       insertCoinDoneMutation.mutate(selectedUser.id)
@@ -99,9 +101,7 @@ export const TopUpDialog = ({
             ₱<CoinCounter totalCoins={data?.total ?? 0} />
           </div>
           <div className="text-center">
-            <div className="text-lg font-bold">
-              {secondsToHMS(data?.total ?? 0)}
-            </div>
+            <div className="text-lg font-bold">{totalDuration}</div>
             <div className="text-sm text-muted-foreground">Total Duration</div>
           </div>
         </div>
