@@ -85,7 +85,6 @@ export const AddTimeDialog = () => {
     onSuccess: (response) => {
       toast.success(response.message)
       queryClient.invalidateQueries({ queryKey: [QueryKey.Devices] })
-      queryClient.invalidateQueries({ queryKey: [QueryKey.Devices, id] })
     },
     onSettled: () => {
       setShowDialog(false)
