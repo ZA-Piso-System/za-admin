@@ -3,6 +3,7 @@ import { Device, DeviceStatus } from "@/common/types/device.type"
 import { secondsToHMS } from "@/common/utils/number.util"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { differenceInSeconds } from "date-fns"
 import { useEffect, useMemo, useState } from "react"
 
 interface Props {
@@ -47,6 +48,15 @@ export const DeviceCard = ({ device }: Props) => {
       return "bg-yellow-500"
     }
     if (device.status === DeviceStatus.Online) {
+      if (deviceSession?.lastSeen) {
+        const diff = differenceInSeconds(
+          new Date(),
+          new Date(deviceSession.lastSeen)
+        )
+        if (diff >= 60) {
+          return "bg-orange-500"
+        }
+      }
       if (deviceSession?.status === DeviceSessionStatus.Active) {
         return "bg-red-500"
       }
@@ -62,6 +72,15 @@ export const DeviceCard = ({ device }: Props) => {
       }
     }
     if (device.status === DeviceStatus.Online) {
+      if (deviceSession?.lastSeen) {
+        const diff = differenceInSeconds(
+          new Date(),
+          new Date(deviceSession.lastSeen)
+        )
+        if (diff >= 60) {
+          return "Disconnected"
+        }
+      }
       if (deviceSession?.status === DeviceSessionStatus.Active) {
         return secondsToHMS(remaining)
       }
