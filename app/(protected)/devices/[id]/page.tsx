@@ -53,9 +53,14 @@ export default function ViewDevice() {
     return () => clearInterval(interval)
   }, [deviceSession])
 
-  const { startAt, endAt } = useMemo(() => {
-    if (!deviceSession || !deviceSession.startAt || !deviceSession.endAt) {
-      return { startAt: "-", endAt: "-" }
+  const { startAt, endAt, lastSeen } = useMemo(() => {
+    if (
+      !deviceSession ||
+      !deviceSession.startAt ||
+      !deviceSession.endAt ||
+      !deviceSession.lastSeen
+    ) {
+      return { startAt: "-", endAt: "-", lastSeen: "-" }
     }
 
     const startAt = deviceSession.startAt
@@ -66,7 +71,11 @@ export default function ViewDevice() {
       ? format(new Date(deviceSession.endAt), "MMM dd, yyyy, hh:mm:ss a")
       : "-"
 
-    return { startAt, endAt }
+    const lastSeen = deviceSession.lastSeen
+      ? format(new Date(deviceSession.lastSeen), "MMM dd, yyyy, hh:mm:ss a")
+      : "-"
+
+    return { startAt, endAt, lastSeen }
   }, [deviceSession])
 
   return (
@@ -124,6 +133,12 @@ export default function ViewDevice() {
           <ItemContent>
             <ItemTitle>End At</ItemTitle>
             <ItemDescription>{endAt}</ItemDescription>
+          </ItemContent>
+        </Item>
+        <Item variant="outline">
+          <ItemContent>
+            <ItemTitle>Last Seen</ItemTitle>
+            <ItemDescription>{lastSeen}</ItemDescription>
           </ItemContent>
         </Item>
       </ItemGroup>
