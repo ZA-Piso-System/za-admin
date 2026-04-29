@@ -92,7 +92,7 @@ export const SalesOverview = () => {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={data}>
+          <BarChart accessibilityLayer data={data} margin={{ top: 20 }}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="label"
