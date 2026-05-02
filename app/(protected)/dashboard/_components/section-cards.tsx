@@ -22,14 +22,6 @@ export const SectionCards = () => {
           </CardTitle>
         </CardHeader>
       </Card>
-      <Card>
-        <CardHeader>
-          <CardDescription>-</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            -
-          </CardTitle>
-        </CardHeader>
-      </Card>
     </div>
   )
 }

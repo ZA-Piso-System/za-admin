@@ -1,6 +1,7 @@
 export interface DashboardResponse {
   revenue: {
     today: number
+    monthly: number
   }
   totalUsers: number
 }

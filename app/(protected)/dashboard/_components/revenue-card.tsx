@@ -17,13 +17,23 @@ export const RevenueCard = () => {
   })
 
   return (
-    <Card>
-      <CardHeader>
-        <CardDescription>Revenue Today</CardDescription>
-        <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-          {formatCurrency(data?.revenue.today ?? 0)}
-        </CardTitle>
-      </CardHeader>
-    </Card>
+    <>
+      <Card>
+        <CardHeader>
+          <CardDescription>Revenue Today</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {formatCurrency(data?.revenue.today ?? 0)}
+          </CardTitle>
+        </CardHeader>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardDescription>Monthly Revenue</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {formatCurrency(data?.revenue.monthly ?? 0)}
+          </CardTitle>
+        </CardHeader>
+      </Card>
+    </>
   )
 }
