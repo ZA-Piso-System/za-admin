@@ -1,8 +1,11 @@
+import { User } from "@/common/types/user.type"
+
 export type DeviceSession = {
   status: DeviceSessionStatus
   startAt: string | null
   endAt: string | null
   lastSeen: string | null
+  user?: User
 }
 
 export const DeviceSessionStatus = {

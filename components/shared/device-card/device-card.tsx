@@ -1,9 +1,16 @@
 import { DeviceSessionStatus } from "@/common/types/device-session.type"
 import { Device, DeviceStatus } from "@/common/types/device.type"
 import { secondsToHMS } from "@/common/utils/number.util"
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import { differenceInSeconds } from "date-fns"
+import { UserIcon } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 
 interface Props {
@@ -91,12 +98,21 @@ export const DeviceCard = ({ device }: Props) => {
   return (
     <Card className={cn(getBackgroundColor(), "select-none")}>
       <CardHeader>
-        <CardTitle className="text-center text-6xl font-bold">
-          {device.deviceNumber}
+        <CardTitle className="text-2xl font-bold uppercase">
+          {device.type}-{device.deviceNumber}
         </CardTitle>
       </CardHeader>
-      <CardFooter className="flex justify-center font-mono font-medium uppercase">
-        {getDisplayStatus()}
+      <CardContent>
+        <p className="text-center font-mono text-2xl font-bold capitalize">
+          {getDisplayStatus()}
+        </p>
+      </CardContent>
+      <CardFooter className="flex h-14 gap-1 border-t-0 bg-transparent font-bold">
+        {deviceSession && (
+          <>
+            <UserIcon /> {deviceSession.user?.username ?? "Guest"}
+          </>
+        )}
       </CardFooter>
     </Card>
   )
