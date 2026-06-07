@@ -1,5 +1,6 @@
 "use client"
 
+import { MINUTES_PER_PESO } from "@/common/constants/app.constant"
 import { Device } from "@/common/types/device.type"
 import { QueryKey } from "@/common/types/query-key.type"
 import { secondsToHMS } from "@/common/utils/number.util"
@@ -72,7 +73,7 @@ export const InsertCoinDialog = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.total])
 
-  const totalDuration = secondsToHMS((data.total ?? 0) * 4 * 60)
+  const totalDuration = secondsToHMS((data.total ?? 0) * MINUTES_PER_PESO * 60)
 
   const handleClose = () => {
     if (selectedDevice && cooldown <= 0) {
