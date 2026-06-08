@@ -1,5 +1,5 @@
 import { DeviceList } from "@/app/(guest)/pc-list/_components/device-list"
-import { PromoBanner } from "@/app/(guest)/pc-list/_components/prombo-banner"
+import { PromoBanner } from "@/app/(guest)/pc-list/_components/promo-banner"
 import { CurrentDate } from "@/components/shared/current-date"
 import { Button } from "@/components/ui/button"
 import { ChevronLeftIcon } from "lucide-react"
