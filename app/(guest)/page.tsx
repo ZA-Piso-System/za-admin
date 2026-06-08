@@ -1,3 +1,4 @@
+import { TopPlayers } from "@/app/(guest)/_components/top-players"
 import { FullscreenButton } from "@/components/shared/fullscreen-button"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { IdCardIcon, MonitorIcon } from "lucide-react"
@@ -11,7 +12,7 @@ export default function Home() {
           {process.env.NEXT_PUBLIC_APP_NAME}
         </h1>
       </div>
-      <div className="flex justify-center pt-20">
+      <div className="flex flex-col items-center justify-center gap-10 pt-14">
         <div className="grid w-5xl grid-cols-2 gap-8">
           <Link href="/pc-list">
             <Card>
@@ -44,6 +45,7 @@ export default function Home() {
             </Card>
           </Link>
         </div>
+        <TopPlayers />
       </div>
       <div className="absolute top-4 right-4">
         <FullscreenButton />
