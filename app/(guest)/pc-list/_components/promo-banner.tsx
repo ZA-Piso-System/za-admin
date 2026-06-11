@@ -13,8 +13,7 @@ export const PromoBanner = () => {
   })
 
   const pointsPackage = useMemo(() => {
-    if (!data || data.items.length < 1) return null
-    return data.items.find((item) => item.displayOrder === 1) ?? null
+    return data?.items.find((item) => item.displayOrder === 1) ?? null
   }, [data])
 
   return (
